@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "檢驗檢查資料轉檔";
+}
+@section Header
+{
+    <div class="row align-items-center">
+        <div class="col-md-12">
+            <div class="page-header-title">
+                <h5 class="m-b-10">@ViewBag.Title</h5>
+            </div>
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><b class="f-w-600"><span class="badge badge-secondary" style="font-size:18px">A框轉檔</span> 檢驗檢查資料檔每日格式(LABD)檔案 <span class="badge badge-success">XML</span></b></h5>
+            </div>
+            <div class="card-body">
+                <form action="@Url.Action("LAB_D")" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="file">LABD:</label>
+                        @*<input type="file" name="file" id="file" accept=".xml,.json" />*@
+                        <input type="file" name="file" id="file" accept=".xml" />
+                    </div>
+                    <div class="form-group">
+                        <label for="file">篩選清單:</label>
+                        @*<input type="file" name="file" id="file" accept=".xml,.json" />*@
+                        <input type="file" name="file_excel" id="file_excel" accept=".xls,.xlsx" />
+                    </div>
+                    @*<div class="form-group">
+                            <label>備註說明(Note)：</label>
+                            <textarea name="note" class="form-control" rows="3"></textarea>
+                        </div>*@
+                    <input class="btn btn-primary" type="submit" />
+                </form>
+                @if (ViewBag.alert != null && ViewBag.form == "LAB_D")
+                {
+                    if ((ViewBag.alert == "1" && ViewBag.fileZip == "1") || (ViewBag.alert == "2" && ViewBag.fileZip == "1"))
+                    {
+                        <div class="alert alert-warning">
+                            @ViewBag.result<br>
+                        </div>
+                        @*<a class="btn btn-primary" href="@Url.Action("DownloadZIP", "Conv", new { fileZip = ViewBag.fileZip }) ">Download</a>*@
+                        <a class="btn btn-primary" href="@Url.Action("DownloadError", "Conv", new { fileError = ViewBag.fileError }) ">ErrorReport</a>
+                    }
+                    else if (ViewBag.alert == "1" && ViewBag.fileZip.Length != 1)
+                    {
+                        <div class="alert alert-success">
+                            @ViewBag.result<br>
+                        </div>
+                        <a class="btn btn-primary" href="@Url.Action("DownloadZIP", "Conv", new { fileZip = ViewBag.fileZip }) ">Download</a>
+                        <a class="btn btn-primary" href="@Url.Action("DownloadError", "Conv", new { fileError = ViewBag.fileError }) ">原檔XML_ErrorReport</a>
+                    }
+                    else if (ViewBag.alert == "0")
+                    {
+                        <div class="alert alert-danger">
+                            @ViewBag.result
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h5><b class="f-w-600"><span class="badge badge-secondary" style="font-size:18px">A框轉檔</span> 檢驗檢查資料檔每月格式(LABM)檔案 <span class="badge badge-success">XML</span></b></h5>
+            </div>
+            <div class="card-body">
+                <form action="@Url.Action("LAB_M")" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="file">LABM:</label>
+                        @*<input type="file" name="file" id="file" accept=".xml,.json" />*@
+                        <input type="file" name="file" id="file" accept=".xml" />
+                    </div>
+                    <div class="form-group">
+                        <label for="file">篩選清單:</label>
+                        @*<input type="file" name="file" id="file" accept=".xml,.json" />*@
+                        <input type="file" name="file_excel" id="file_excel" accept=".xls,.xlsx" />
+                    </div>
+                    @*<div class="form-group">
+                            <label>備註說明(Note)：</label>
+                            <textarea name="note" class="form-control" rows="3"></textarea>
+                        </div>*@
+                    <input class="btn btn-primary" type="submit" />
+                </form>
+                @if (ViewBag.alert != null && ViewBag.form == "LAB_M")
+                {
+
+                    if ((ViewBag.alert == "1" && ViewBag.fileZip == "1") || (ViewBag.alert == "2" && ViewBag.fileZip == "1"))
+                    {
+                        <div class="alert alert-success">
+                            @ViewBag.result<br>
+                        </div>
+                        @*<a class="btn btn-primary" href="@Url.Action("DownloadZIP", "Conv", new { fileZip = ViewBag.fileZip }) ">Download</a>*@
+                        <a class="btn btn-primary" href="@Url.Action("DownloadError", "Conv", new { fileError = ViewBag.fileError }) ">ErrorReport</a>
+                    }
+                    else if (ViewBag.alert == "1" && ViewBag.fileZip.Length != 1)
+                    {
+                        <div class="alert alert-success">
+                            @ViewBag.result<br>
+                        </div>
+                        <a class="btn btn-primary" href="@Url.Action("DownloadZIP", "Conv", new { fileZip = ViewBag.fileZip }) ">Download</a>
+                        <a class="btn btn-primary" href="@Url.Action("DownloadError", "Conv", new { fileError = ViewBag.fileError }) ">原檔XML_ErrorReport</a>
+                    }
+                    else if (ViewBag.alert == "0")
+                    {
+                        <div class="alert alert-danger">
+                            @ViewBag.result
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+</div>

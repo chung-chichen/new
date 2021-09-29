@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "國家級人體生物資料庫整合平台 - 北慈撈選系統";
+}
+<div class="col-sm-12">
+    <div class="card">
+        <div class="card-header">
+            <h5><label class="f-w-700">@ViewBag.Title 介紹</label></h5>
+        </div>
+        <div class="card-body text-dark">
+            <p class="mb-2 f-w-600" style="font-size:18px">
+                「國家級人體生物資料庫整合平台」主要整合國內人體生物資料庫之臨床診斷與治療追蹤之電子健康資料(electronic health records, EHR)，藉由跨機構的合作，建置一致性的臨床診療共同資料欄位內容，以利未來進行相關研究。<br>
+                整合平台所提供的轉檔系統主要有兩大功能：
+            </p>
+            <blockquote class="blockquote" style="font-size:18px">
+                <p class="mb-1 f-w-600" style="font-size:18px">
+                    一、匯入A框格式資料（XML或TXT），轉為B框格式(XLSX)；並且驗證所匯入的A框資料內容是否符合各欄位格式需求，產生偵錯報告。Ａ框可匯入的資料如下列清單所示：
+                    <ol>
+                        <li>門診醫療申報檔案(TOTFA)</li>
+                        <li>住院醫療申報檔案(TOTFB)</li>
+                        <li>檢驗檢查資料檔每日格式(LABD)</li>
+                        <li>檢驗檢查資料檔每月格式(LABM)</li>
+                        <li>癌症登記長表資料檔(CRLF)</li>
+                        <li>癌症登記短表資料檔(CRSF)</li>
+                    </ol>
+                </p>
+            </blockquote>
+            <blockquote class="blockquote" style="font-size:18px">
+                <p class="mb-1 f-w-600" style="font-size:18px">
+                    二、驗證B框資料（如以下檔案清單）各欄位內容是否符合格式需求，產生偵錯報告。Ｂ框可匯入的資料如下列清單所示：
+                    <ol>
+                        <li>門診醫療申報檔案總表(TOTFAE)</li>
+                        <li>門診醫療申報檔案醫令(TOTFAO)</li>
+                        <li>住院醫療申報檔案(TOTFBE)</li>
+                        <li>住院醫療申報檔案醫令(TOTFBO)</li>
+                        <li>檢驗檢查資料檔每日格式(LABD)</li>
+                        <li>檢驗檢查資料檔每月格式(LABM)</li>
+                        <li>癌症登記長表資料檔(CRLF)</li>
+                        <li>癌症登記短表資料檔(CRSF)</li>
+                    </ol>
+                </p>
+            </blockquote>
+            <p class="mb-1 f-w-600" style="font-size:18px">
+                各機構內若已經有現成的病人診療追蹤電子紀錄資料庫，例如現成的醫學研究用資料檔案，可考慮擷取B框資料匯入，若沒有則可以選擇擷取A框資料藉由系統轉檔並產生偵錯報告。
+            </p>
+            <img class="img-fluid rounded mx-auto d-block" style="width:70%" src="@Url.Content("~/IMG/System_Framwork.png")" />
+        </div>
+    </div>
+</div>

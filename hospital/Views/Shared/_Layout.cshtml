@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 北慈撈選系統</title>
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+    <!-- fontawesome icon -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/assets/fonts/fontawesome/css/fontawesome-all.min.css")">
+    <!-- animation css -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/assets/plugins/animation/css/animate.min.css")">
+    <!-- vendor css -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/assets/css/style.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap-tagsinput/bootstrap-tagsinput.css")">
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <!-- [ Pre-loader ] start -->
+    <div class="loader-bg">
+        <div class="loader-track">
+            <div class="loader-fill"></div>
+        </div>
+    </div>
+    <!-- [ Pre-loader ] End -->
+    <!-- [ navigation menu ] start -->
+    <nav class="pcoded-navbar">
+        <div class="navbar-wrapper">
+            <div class="navbar-brand header-logo">
+                <a href="@Url.Action("Index", "Home")" class="b-brand">
+                    <div class="b-bg">
+                        <i class="feather icon-trending-up"></i>
+                    </div>
+                    <span class="b-title">篩選系統</span>
+                </a>
+                <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
+            </div>
+            <div class="navbar-content scroll-div">
+                <ul class="nav pcoded-inner-navbar">
+                    <li class="nav-item pcoded-menu-caption">
+                        <label>Home</label>
+                    </li>
+                    @*<li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString()== "Home" & ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                            <a href="@Url.Action("Index", "Home")" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">主畫面</span></a>
+                        </li>*@
+                    <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString()== "Home" & ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                        <a href="@Url.Action("Index", "Home")" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">主畫面</span></a>
+                    </li>
+                    <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString()== "Home" & ViewContext.RouteData.Values["Action"].ToString() == "Files_Download" ? "active" : "")">
+                        <a href="@Url.Action("Files_Download", "Home")" class="nav-link "><span class="pcoded-micon"><i class="feather icon-download"></i></span><span class="pcoded-mtext">說明文件下載</span></a>
+                    </li>
+                    <li class="nav-item pcoded-menu-caption">
+                        <label>Conversion</label>
+                    </li>
+                    <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString()== "Conv" & ViewContext.RouteData.Values["Action"].ToString() == "OPD" ? "active" : "")">
+                        <a href="@Url.Action("OPD", "Conv")" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">門診</span></a>
+                    </li>
+                    <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString()== "Conv" & ViewContext.RouteData.Values["Action"].ToString() == "IPD" ? "active" : "")">
+                        <a href="@Url.Action("IPD", "Conv")" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">住院</span></a>
+                    </li>
+                    <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString()== "Conv" & ViewContext.RouteData.Values["Action"].ToString() == "LAB" ? "active" : "")">
+                        <a href="@Url.Action("LAB", "Conv")" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">檢驗檢查</span></a>
+                    </li>
+                    <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" class="nav-item @(ViewContext.RouteData.Values["Controller"].ToString()== "Conv" & ViewContext.RouteData.Values["Action"].ToString() == "CRLF" ? "active" : "")">
+                        <a href="@Url.Action("CRLF", "Conv")" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">癌登表</span></a>
+                    </li>
+                    @*<li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
+                            <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">資料轉換</span></a>
+                            <ul class="pcoded-submenu">
+                                <li class="@(ViewContext.RouteData.Values["Controller"].ToString()== "Conv" & ViewContext.RouteData.Values["Action"].ToString() == "OPD" ? "active" : "")"><a href="@Url.Action("OPD", "Conv")" class="">門診</a></li>
+                                <li class="@(ViewContext.RouteData.Values["Controller"].ToString()== "Conv" & ViewContext.RouteData.Values["Action"].ToString() == "IPD" ? "active" : "")"><a href="@Url.Action("IPD", "Conv")" class="">住院</a></li>
+                                <li class="@(ViewContext.RouteData.Values["Controller"].ToString()== "Conv" & ViewContext.RouteData.Values["Action"].ToString() == "LAB" ? "active" : "")"><a href="@Url.Action("LAB", "Conv")" class="">檢驗檢查</a></li>
+                            </ul>
+                        </li>*@
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- [ navigation menu ] end -->
+    <!-- [ Header ] start -->
+    <header class="navbar pcoded-header navbar-expand-lg navbar-light">
+        <div class="m-header">
+            <a class="mobile-menu" id="mobile-collapse1" href="javascript:"><span></span></a>
+            <a href="@Url.Action("Index", "Home")" class="b-brand">
+                <div class="b-bg">
+                    <i class="feather icon-trending-up"></i>
+                </div>
+                <span class="b-title">篩選系統</span>
+            </a>
+        </div>
+        <a class="mobile-menu" id="mobile-header" href="javascript:">
+            <i class="feather icon-more-horizontal"></i>
+        </a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto"></ul>
+        </div>
+    </header>
+    <!-- [ Header ] end -->
+    <!-- Warning Section Starts -->
+    <!-- Older IE warning message -->
+    <!--[if lt IE 11]>
+        <div class="ie-warning">
+            <h1>Warning!!</h1>
+            <p>You are using an outdated version of Internet Explorer, please upgrade
+               <br/>to any of the following web browsers to access this website.
+            </p>
+            <div class="iew-container">
+                <ul class="iew-download">
+                    <li>
+                        <a href="http://www.google.com/chrome/">
+                            <img src=@Url.Content("~/Content/assets/images/browser/chrome.png") alt="Chrome">
+                            <div>Chrome</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.mozilla.org/en-US/firefox/new/">
+                            <img src=@Url.Content("~/Content/assets/images/browser/firefox.png") alt="Firefox">
+                            <div>Firefox</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://www.opera.com">
+                            <img src=@Url.Content("~/Content/assets/images/browser/opera.png") alt="Opera">
+                            <div>Opera</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.apple.com/safari/">
+                            <img src=@Url.Content("~/Content/assets/images/browser/safari.png") alt="Safari">
+                            <div>Safari</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
+                            <img src=@Url.Content("~/Content/assets/images/browser/ie.png") alt="">
+                            <div>IE (11 & above)</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <p>Sorry for the inconvenience!</p>
+        </div>
+    <![endif]-->
+    <!-- Warning Section Ends -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <!-- [ breadcrumb ] start -->
+                    <div class="page-header">
+                        <div class="page-block">
+                            @RenderSection("Header", required: false)
+                        </div>
+                    </div>
+                    <!-- [ breadcrumb ] end -->
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <!-- [ Main Content ] start -->
+                            @RenderBody()
+                            <!-- [ Main Content ] end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <footer>
+            <p>
+                &copy; @DateTime.Now.Year &nbsp;國家級人體生物資料庫整合平台團隊製作
+            </p>
+        </footer>
+    </div>
+
+    <!-- Required Js -->
+    @Scripts.Render("~/bundles/Required")
+    @Scripts.Render("~/bundles/pcoded")
+    @Scripts.Render("~/Content/bootstrap-tagsinput")
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
