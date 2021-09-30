@@ -51,7 +51,7 @@
                             @ViewBag.result<br>
                         </div>
                         <a class="btn btn-primary" href="@Url.Action("DownloadZIP", "Conv", new { fileZip = ViewBag.fileZip }) ">Download</a>
-                        <a class="btn btn-primary" href="@Url.Action("DownloadError", "Conv", new { fileError = ViewBag.fileError }) ">原檔XML_ErrorReport</a>
+                        @*<a class="btn btn-primary" href="@Url.Action("DownloadError", "Conv", new { fileError = ViewBag.fileError }) ">原檔XML_ErrorReport</a>*@
                     }
                     else if (ViewBag.alert == "0")
                     {
@@ -101,7 +101,7 @@
                             @ViewBag.result<br>
                         </div>
                         <a class="btn btn-primary" href="@Url.Action("DownloadZIP", "Conv", new { fileZip = ViewBag.fileZip }) ">Download</a>
-                        <a class="btn btn-primary" href="@Url.Action("DownloadError", "Conv", new { fileError = ViewBag.fileError }) ">原檔XML_ErrorReport</a>
+                        @*<a class="btn btn-primary" href="@Url.Action("DownloadError", "Conv", new { fileError = ViewBag.fileError }) ">原檔XML_ErrorReport</a>*@
                     }
                     else if (ViewBag.alert == "0")
                     {

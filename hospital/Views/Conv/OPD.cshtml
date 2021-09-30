@@ -6,64 +6,6 @@
     var fileZip = ViewBag.fileZip;
     var fileError = ViewBag.fileError;
 }
-@section  Styles
-{
-    <style>
-        .item {
-            background-color: #6699CC;
-            border: 1px solid gray;
-            font-family: 'Courier New';
-            font-size: 8.5pt;
-            margin-bottom: 6px;
-            padding: 3px;
-            color: yellow;
-            box-shadow: 3px 3px 3px 1px rgba(128, 128, 128, 0.7);
-        }
-
-            .item .name {
-                text-shadow: 1px 1px gray;
-            }
-
-        .prg-zone {
-            margin-top: 10px;
-        }
-
-        .bar {
-            background-color: #666666;
-            height: 15px;
-            position: relative;
-            margin: 3px;
-            margin-top: 6px;
-            margin-bottom: 6px;
-            border: 1px solid #ccc;
-            border-top-color: #444;
-            border-left-color: #444;
-        }
-
-            .bar > div {
-                position: absolute;
-                color: white;
-                font-size: 8pt;
-            }
-
-            .bar .color-bar {
-                background-color: #99bb33;
-                top: 0px;
-                bottom: 0px;
-                left: 0px;
-            }
-
-            .bar .status {
-                top: 0px;
-                left: 6px;
-            }
-
-            .bar .progress {
-                top: 0px;
-                right: 4px;
-            }
-    </style>
-}
 
 @section Header
 {
@@ -97,17 +39,6 @@
                     <input class="btn btn-primary" type="submit" />
                     @*<input class="btn btn-primary" type="button" value="送出" data-bind="click: upload" />*@
                 </form>
-                @* 顯示進度條 Start *@
-                @*<div data-bind="foreach: files" class="prg-zone">
-                    <div class="item">
-                        <div data-bind="text: name" class="name"></div>
-                        <div class="bar">
-                            <div class="color-bar" data-bind="attr: { 'style': widthStyle }"></div>
-                            <div class="status" data-bind="text: status"></div>
-                            <div class="progress" data-bind="text: progress"></div>
-                        </div>
-                    </div>
-                </div>*@
                 @* 顯示進度條 End *@
                 @if (alert != null && ViewBag.form == "OPD")
                 {
@@ -126,7 +57,7 @@
                             @result<br>
                         </div>
                         <a class="btn btn-primary" href="@Url.Action("DownloadZIP", "Conv", new { fileZip }) ">Download</a>
-                        <a class="btn btn-primary" href="@Url.Action("DownloadError", "Conv", new { fileError}) ">原檔XML_ErrorReport</a>
+                        @*<a class="btn btn-primary" href="@Url.Action("DownloadError", "Conv", new { fileError}) ">原檔XML_ErrorReport</a>*@
                     }
                     else if (alert == "0")
                     {
@@ -139,82 +70,3 @@
         </div>
     </div>
 </div>
-@section Scripts
-{
-    <script src="~/Scripts/jquery.signalR-2.4.1.js"></script>
-    <script src="@Url.Content("~/signalr/hubs")"></script>
-    <script src="~/Scripts/knockout-3.5.1.debug.js"></script>
-    <script>
-        $(function () {
-        //$(function (){}) 是Jquery $(document).ready(function() { ... }); 的簡寫
-            function viewModel() {
-                var self = this;
-                self.files = ko.observableArray();
-                self.selectorChange = function (item, e) {
-                    self.files.removeAll();
-                    $.each(e.target.files, function (i, file) {
-                        //加入額外屬性
-                        file.percentage = ko.observable(0);
-                        file.progress = ko.observable();
-                        file.widthStyle = ko.computed(function () {
-                            return "right:" + (100 - file.percentage()) + "%";
-                        });
-                        file.message = ko.observable();
-                        file.status = ko.computed(function () {
-                            var msg = file.message(), perc = file.percentage();
-                            if (msg) return msg;
-                            if (perc == 0) return "Waiting";
-                            else if (perc == 100) return "Done";
-                            else return "Uploading...";
-                        });
-                        self.files.push(file);
-                    });
-                };
-                //以檔名為索引建立Dictionary，方便更新進度資訊
-                self.dictionary = {};
-                ko.computed(function () {
-                    self.dictionary = {};
-                    $.each(self.files(), function (i, file) {
-                        self.dictionary[file.name] = file;
-                    });
-                }).extend({ throttle: 100 });
-
-                self.upload = function () {
-                    $.each(self.files(), function (i, file) {
-                        var data = new FormData();
-                        data.append('file', file); 
-                        $.ajax({
-                            type: "POST",
-                            url: "@Url.Action("OPD")" +
-                                    "?fileName=" + file.name + "&connId=" + connId,
-                            contentType: false,
-                            processData: false, //不做任何處理，只上傳原始資料
-                            data: data,
-                            success: function (result) {
-                                alert(result);
-                            }
-                        });
-                    });
-                };
-            }
-            var vm = new viewModel();
-            ko.applyBindings(vm);
-            //建立SignalR連線並取得Connection Id
-            var connId;
-            var hub = $.connection.uploaderHub;
-            $.connection.hub.start().done(function () {
-                connId = $.connection.hub.id;
-            });
-            //Server端傳回上傳進度時，更新檔案狀態
-            hub.client.updateProgress = function (name, percentage, progress, message) {
-                var file = vm.dictionary[name];
-                if (file) {
-                    file.percentage(percentage);
-                    file.progress(progress);
-                    if (message) file.message(message);
-                }
-            };
-
-        });
-    </script>
-}
