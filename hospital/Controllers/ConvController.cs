@@ -129,7 +129,7 @@ namespace hospital.Controllers
         {
             ViewBag.form = form;
             ViewBag.alert = alert;
-            ViewBag.result = result;F
+            ViewBag.result = result;
             ViewBag.fileZip = fileZip;
             ViewBag.fileError = fileError;
             return View();
