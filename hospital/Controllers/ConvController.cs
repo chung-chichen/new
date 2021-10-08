@@ -129,7 +129,7 @@ namespace hospital.Controllers
         {
             ViewBag.form = form;
             ViewBag.alert = alert;
-            ViewBag.result = result;
+            ViewBag.result = result;F
             ViewBag.fileZip = fileZip;
             ViewBag.fileError = fileError;
             return View();
@@ -371,7 +371,7 @@ namespace hospital.Controllers
                         if (row.GetCell(0).ToString() != "" && (row.GetCell(1) != null || row.GetCell(1).ToString() != ""))
                         {
                             patient_Hash.Patient_Id = row.GetCell(0).ToString();
-                            code_check_error = Regex.IsMatch(row.GetCell(0).ToString(), @"^[A-Z]{1}[A-Z1-2]{1}[0-9]{8}$") ? "OK" : "Error";
+                            code_check_error = Regex.IsMatch(row.GetCell(0).ToString(), @"^[A-Z]{1}[A-Da-d1289]{1}[0-9]{8}$") ? "OK" : "Error";
                             if (row.GetCell(0).ToString() == "")
                             {
                                 error += "第" + (i + 1) + "行 " + headerRow.GetCell(0) + " 欄位不得為空值\n";
