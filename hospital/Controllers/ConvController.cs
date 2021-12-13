@@ -14,6 +14,7 @@ using NPOI.XSSF.UserModel;
 using System.Globalization;
 using System.Xml.Linq;
 using System.Linq;
+using System.Text;
 
 namespace hospital.Controllers
 {
@@ -766,11 +767,11 @@ namespace hospital.Controllers
                 }
 
                 var tempFile = Path.GetTempFileName();
-                var linesToKeep = System.IO.File.ReadLines(path).Where
+                var linesToKeep = System.IO.File.ReadLines(path, EncodeDetect.IsBig5Encoding(path)).Where(n=> n.Length > 0).Where
                     (l =>
-                    patient_Hash_Guids.Any(
-                        s => s.Patient_Id == l.Substring(CR_Id_Birth_Dic["ID"].start - 1, CR_Id_Birth_Dic["ID"].length).Trim() &&
-                        s.Patient_Birth == Tw_date(l.Substring(CR_Id_Birth_Dic["BIRTH"].start - 1, CR_Id_Birth_Dic["BIRTH"].length).Trim())
+                        patient_Hash_Guids.Any(
+                            s => s.Patient_Id == SubBIG5StringToByteArray(l, CR_Id_Birth_Dic["ID"].start - 1, CR_Id_Birth_Dic["ID"].length, Encoding.GetEncoding(950)) &&
+                            s.Patient_Birth == Tw_date(SubBIG5StringToByteArray(l, CR_Id_Birth_Dic["BIRTH"].start - 1, CR_Id_Birth_Dic["BIRTH"].length, Encoding.GetEncoding(950)))
                         )
                     );
 
@@ -791,6 +792,12 @@ namespace hospital.Controllers
             }
         }
 
+        //將文字使用特定編碼轉為Byte[] 並取特定的長度
+        public string SubBIG5StringToByteArray(string source, int start, int length, Encoding encoding)
+        {
+            return encoding.GetString(encoding.GetBytes(source).Where((p, index) => index >= start && index < (start+length)).ToArray());
+        }
+
         public string CRSF_TXT_Read(string path, string fileName)
         {
             try
@@ -804,7 +811,7 @@ namespace hospital.Controllers
                 }
 
                 var tempFile = Path.GetTempFileName();
-                var linesToKeep = System.IO.File.ReadLines(path).Where
+                var linesToKeep = System.IO.File.ReadLines(path, EncodeDetect.IsBig5Encoding(path)).Where
                     (l =>
                     patient_Hash_Guids.Any(
                         s => s.Patient_Id == l.Substring(CR_Id_Birth_Dic["ID"].start - 1, CR_Id_Birth_Dic["ID"].length).Trim() &&
