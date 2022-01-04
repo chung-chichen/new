@@ -811,11 +811,11 @@ namespace hospital.Controllers
                 }
 
                 var tempFile = Path.GetTempFileName();
-                var linesToKeep = System.IO.File.ReadLines(path, EncodeDetect.IsBig5Encoding(path)).Where
+                var linesToKeep = System.IO.File.ReadLines(path, EncodeDetect.IsBig5Encoding(path)).Where(n => n.Length > 0).Where
                     (l =>
                     patient_Hash_Guids.Any(
-                        s => s.Patient_Id == l.Substring(CR_Id_Birth_Dic["ID"].start - 1, CR_Id_Birth_Dic["ID"].length).Trim() &&
-                        s.Patient_Birth == Tw_date(l.Substring(CR_Id_Birth_Dic["BIRTH"].start - 1, CR_Id_Birth_Dic["BIRTH"].length).Trim())
+                        s => s.Patient_Id == SubBIG5StringToByteArray(l, CR_Id_Birth_Dic["ID"].start - 1, CR_Id_Birth_Dic["ID"].length, Encoding.GetEncoding(950)) &&
+                        s.Patient_Birth == Tw_date(SubBIG5StringToByteArray(l, CR_Id_Birth_Dic["BIRTH"].start - 1, CR_Id_Birth_Dic["BIRTH"].length, Encoding.GetEncoding(950)))
                         )
                     );
 
